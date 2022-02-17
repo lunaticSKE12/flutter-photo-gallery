@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './Photos.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import './show_photo.dart';
 
 void main() => runApp(const MyApp());
 
@@ -68,7 +69,14 @@ class _HomeState extends State<Home> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10),
             itemBuilder: (BuildContext context, int index) {
-              return Container(
+              return InkWell(
+                key: ValueKey(Photos.photoLists[index].id),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return ShowPhoto();
+                  }));
+                },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: CachedNetworkImage(
