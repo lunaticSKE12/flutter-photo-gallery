@@ -23,6 +23,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool isReverse = false;
+
   @override
   Widget build(BuildContext context) {
     final device = MediaQuery.of(context).size;
@@ -43,7 +45,11 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                isReverse = !isReverse;
+              });
+            },
             icon: Icon(
               Icons.sort_by_alpha_rounded,
               color: Colors.blue,
@@ -54,6 +60,7 @@ class _HomeState extends State<Home> {
       body: Container(
         padding: EdgeInsets.only(top: 16, left: 16, right: 16),
         child: GridView.builder(
+            reverse: isReverse,
             itemCount: Photos.photoLists.length,
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: device.width / 2,
