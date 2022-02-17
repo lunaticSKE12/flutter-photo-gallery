@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './Photos.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import './show_photo.dart';
+import 'dart:math';
 
 void main() => runApp(const MyApp());
 
@@ -38,7 +39,13 @@ class _HomeState extends State<Home> {
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return ShowPhoto(
+                currentImage: Random().nextInt(14),
+              );
+            }));
+          },
           icon: Icon(
             Icons.slideshow_outlined,
             color: Colors.blue,
@@ -74,7 +81,9 @@ class _HomeState extends State<Home> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
-                    return ShowPhoto();
+                    return ShowPhoto(
+                      currentImage: Photos.photoLists[index].id,
+                    );
                   }));
                 },
                 child: ClipRRect(
