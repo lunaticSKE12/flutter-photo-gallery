@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './Photos.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 void main() => runApp(const MyApp());
 
@@ -62,10 +64,17 @@ class _HomeState extends State<Home> {
               return Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
-                  child: Image.network(
-                    "${Photos.photoLists[index].image}",
+                  child: CachedNetworkImage(
+                    imageUrl: "${Photos.photoLists[index].image}",
+                    placeholder: (context, url) => CupertinoActivityIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
                     fit: BoxFit.cover,
                   ),
+
+                  // Image.network(
+                  //   "${Photos.photoLists[index].image}",
+                  //   fit: BoxFit.cover,
+                  // ),
                 ),
               );
             }),
