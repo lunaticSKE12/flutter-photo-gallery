@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './Photos.dart';
 
 void main() => runApp(const MyApp());
 
@@ -22,6 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final device = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade50,
@@ -46,6 +48,27 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
+      ),
+      body: Container(
+        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+        child: GridView.builder(
+            itemCount: Photos.photoLists.length,
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: device.width / 2,
+                mainAxisExtent: device.height * 0.265,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10),
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    "${Photos.photoLists[index].image}",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            }),
       ),
     );
   }
